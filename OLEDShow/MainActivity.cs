@@ -9,8 +9,6 @@ using Android.Widget;
 using System.Threading;
 using AndroidX.Fragment.App;
 using Android.Util;
-using System.Net.NetworkInformation;
-using System.Text;
 
 namespace OLEDShow
 {
@@ -18,9 +16,6 @@ namespace OLEDShow
     public class MainActivity : FragmentActivity
     {
         public TextView TxvText;
-        Thread ThrSetTime, ThrSetNetwork;
-        bool _isSetTimeThreadWork = true;
-        bool _isSetNetworkThreadWork = true;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -41,8 +36,8 @@ namespace OLEDShow
 
             TxvText.Click += TxvText_Click;
 
-            StartSetTimeThread();
-            StartSetNetworkThread();
+            VThreadCollectionHelper.AddAll();
+            VThreadCollectionHelper.StartAll();
 
         }
 
@@ -80,7 +75,7 @@ namespace OLEDShow
             SetTxvLocation();
         }
 
-        private void SetTxvLocation()
+        public void SetTxvLocation()
         {
             float dx, dy;
 
@@ -110,65 +105,6 @@ namespace OLEDShow
                 .Start()
             );
         }
-
-        private void StartSetTimeThread()
-        {
-            try
-            {
-                ThrSetTime.Abort();
-            }
-            catch { }
-
-            ThrSetTime = new Thread(() =>
-            {
-                while (_isSetTimeThreadWork)
-                {
-                    SetTxvLocation();
-                    Shared.InfoText.Time = DateTime.Now.ToString("hh:mm:ss");
-                    Thread.Sleep(500);
-                }
-
-            });
-            ThrSetTime.Start();
-        }
-
-        private void StartSetNetworkThread()
-        {
-            try
-            {
-                ThrSetNetwork.Abort();
-            }
-            catch { }
-
-            ThrSetNetwork = new Thread(() =>
-            {
-                while (_isSetNetworkThreadWork)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    Ping ping = new Ping();
-                    var reply = ping.Send("1.1.1.1");
-                    switch (reply.Status)
-                    {
-                        case IPStatus.Success:
-                            sb.Append("OK [")
-                              .Append(reply.RoundtripTime)
-                              .Append("ms]");
-                            break;
-                        default:
-                            sb.Append("Failed [")
-                              .Append(reply.Status)
-                              .Append("]");
-                            break;
-                    }
-                    Shared.InfoText.Network = sb.ToString();
-                    Thread.Sleep(1000);
-                }
-
-
-            });
-            ThrSetNetwork.Start();
-        }
-
 
         public void SetTxvText(string str)
         {

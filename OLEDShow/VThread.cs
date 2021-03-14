@@ -2,12 +2,12 @@
 
 namespace OLEDShow
 {
-    public class VThreads
+    public class VThread
     {
         private Thread _thread;
         private ThreadStart _act;
 
-        public VThreads(ThreadStart act)
+        public VThread(ThreadStart act)
         {
             _act = act;
         }
