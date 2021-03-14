@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -7,11 +8,12 @@ namespace OLEDShow
 {
     class VThreadCollectionHelper
     {
-        public static void AddAll(int setTimeSleep = 500, int setNetworkSleep = 1000, int setTxvLocationSleep = 1000)
+        public static void AddAll(int setTimeSleep = 500, int setNetworkSleep = 5000,
+            int setTxvLocationSleep = 1000, int networkAvgTime = 3, string networkTarget = "1.1.1.1", int networkShortSleep = 500)
         {
             AddSetTime(setTimeSleep);
             AddSetTxvLocation(setTxvLocationSleep);
-            AddSetTxvNetwork(setNetworkSleep);
+            AddSetTxvNetwork(setNetworkSleep, networkShortSleep, networkAvgTime, networkTarget);
         }
 
         public static void Clear()
@@ -70,28 +72,55 @@ namespace OLEDShow
             }));
         }
 
-        public static void AddSetTxvNetwork(int sleep = 1000)
+        public static void AddSetTxvNetwork(int sleep = 1000, int shortSleep = 500, int avgTime = 3, string target = "1.1.1.1")
         {
             Add("txvnetwork", new VThread(() =>
             {
                 while (true)
                 {
                     StringBuilder sb = new StringBuilder();
-                    Ping ping = new Ping();
-                    var reply = ping.Send("1.1.1.1");
-                    switch (reply.Status)
+                    long[] pingValue = new long[avgTime];
+                    HashSet<IPStatus> status = new HashSet<IPStatus>();
+                    int validCount = 0;
+                    for (int i = 0; i < avgTime; ++i)
                     {
-                        case IPStatus.Success:
-                            sb.Append("OK [")
-                              .Append(reply.RoundtripTime)
-                              .Append("ms]");
-                            break;
-                        default:
-                            sb.Append("Failed [")
-                              .Append(reply.Status)
-                              .Append("]");
-                            break;
+                        Ping ping = new Ping();
+                        var reply = ping.Send(target);
+                        switch (reply.Status)
+                        {
+                            case IPStatus.Success:
+                                ++validCount;
+                                pingValue[i] = reply.RoundtripTime;
+                                break;
+                            default:
+                                status.Add(reply.Status);
+                                break;
+                        }
                     }
+                    if (validCount > 0)
+                    {
+                        long total = 0;
+                        foreach (var v in pingValue)
+                        {
+                            total = total + v;
+                        }
+                        total = total / validCount;
+                        sb.Append("OK [")
+                                      .Append(total)
+                                      .Append("ms ")
+                                      .Append(validCount)
+                                      .Append("/")
+                                      .Append(avgTime)
+                                      .Append("]");
+                    }
+                    else
+                    {
+                        sb.Append("Failed [");
+                        sb.Append(string.Join(',', status));
+                        sb.Append("]");
+
+                    }
+
                     Shared.InfoText.Network = sb.ToString();
                     Thread.Sleep(sleep);
                 }

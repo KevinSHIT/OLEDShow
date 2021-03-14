@@ -2,7 +2,7 @@
 {
     public class InfoText
     {
-        string _time;
+        string _time = "Unknwon";
         public string Time
         {
             get => _time;
@@ -13,7 +13,7 @@
             }
         }
 
-        string _network;
+        string _network = "Unknwon";
         public string Network
         {
             get => _network;
