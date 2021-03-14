@@ -31,7 +31,7 @@
 
         public void RefreshText()
         {
-            Shared.MainActivity.SetTxvText(this.ToString());
+            Shared.MainActivity.SetTxvText(ToString());
         }
     }
 }

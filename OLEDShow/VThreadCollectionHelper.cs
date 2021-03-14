@@ -14,6 +14,11 @@ namespace OLEDShow
             AddSetTxvNetwork(setNetworkSleep);
         }
 
+        public static void Clear()
+        {
+            Shared.VThreadsCollection.Clear();
+        }
+
         public static void StopAll()
         {
             foreach (var kv in Shared.VThreadsCollection)
