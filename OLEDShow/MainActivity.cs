@@ -6,7 +6,6 @@ using Android.Views;
 using AndroidX.AppCompat.Widget;
 using AndroidX.AppCompat.App;
 using Android.Widget;
-using System.Threading;
 using AndroidX.Fragment.App;
 using Android.Util;
 

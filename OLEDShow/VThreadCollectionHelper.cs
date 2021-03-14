@@ -40,8 +40,8 @@ namespace OLEDShow
         {
             if (Shared.VThreadsCollection.ContainsKey(name))
             {
-                Shared.VThreadsCollection["name"].Stop();
-                Shared.VThreadsCollection.Remove("name");
+                Shared.VThreadsCollection[name].Stop();
+                Shared.VThreadsCollection.Remove(name);
             }
             Shared.VThreadsCollection.Add(name, vt);
         }
@@ -72,7 +72,7 @@ namespace OLEDShow
 
         public static void AddSetTxvNetwork(int sleep = 1000)
         {
-            Add("txvlocation", new VThread(() =>
+            Add("txvnetwork", new VThread(() =>
             {
                 while (true)
                 {
