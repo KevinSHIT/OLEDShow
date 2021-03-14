@@ -40,6 +40,13 @@ namespace OLEDShow
 
         }
 
+        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
+            // FIXME: Delay Time
+            SetTxvLocation();
+        }
+
         public void HideSystemUI()
         {
             if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.R)
