@@ -9,7 +9,7 @@ namespace OLEDShow
     class VThreadCollectionHelper
     {
         public static void AddAll(int setTimeSleep = 500, int setNetworkSleep = 5000,
-            int setTxvLocationSleep = 1000, int networkAvgTime = 3, string networkTarget = "1.1.1.1", int networkShortSleep = 500)
+            int setTxvLocationSleep = 30 * 60 * 1000, int networkAvgTime = 3, string networkTarget = "1.1.1.1", int networkShortSleep = 500)
         {
             AddSetTime(setTimeSleep);
             AddSetTxvLocation(setTxvLocationSleep);
