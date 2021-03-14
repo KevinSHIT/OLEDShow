@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OLEDShow", "OLEDShow\OLEDShow.csproj", "{1F6528C2-EB86-48BB-A918-2F9D4AE16CFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F6528C2-EB86-48BB-A918-2F9D4AE16CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6528C2-EB86-48BB-A918-2F9D4AE16CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6528C2-EB86-48BB-A918-2F9D4AE16CFD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1F6528C2-EB86-48BB-A918-2F9D4AE16CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6528C2-EB86-48BB-A918-2F9D4AE16CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6528C2-EB86-48BB-A918-2F9D4AE16CFD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {259A3FA0-B954-44D6-B068-67A9F5976572}
+	EndGlobalSection
+EndGlobal
