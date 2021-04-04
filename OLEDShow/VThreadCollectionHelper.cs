@@ -54,7 +54,7 @@ namespace OLEDShow
             {
                 while (true)
                 {
-                    Shared.InfoText.Time = DateTime.Now.ToString("hh:mm:ss");
+                    Shared.InfoText.Time = DateTime.Now.ToString("hh:mm:ss tt");
                     Thread.Sleep(sleep);
                 }
             }));
