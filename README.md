@@ -1,6 +1,6 @@
 # OLEDShow
 
-This is a simple OLED clock which is able to display a very simple time and
+This is a simple Android OLED clock app which is able to display a very simple time and
 current network status.
 
 This project is done when I studied in Foundation in Brighton, UK. That time,
